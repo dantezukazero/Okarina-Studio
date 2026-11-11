@@ -6,6 +6,10 @@
 
 [Windows-Version herunterladen](https://github.com/dantezukazero/Okarina-Studio/releases/latest) · [English README](README.en.md) · [NFO](Okarina-Studio.nfo)
 
+Wenn dir Okarina Studio gefällt, kannst du meine Arbeit mit einem Kaffee unterstützen:
+
+[![Buy me a coffee auf Ko-fi](https://img.shields.io/badge/Buy_me_a_coffee-Ko--fi-FF5E5B?style=for-the-badge)](https://ko-fi.com/dantezukazero)
+
 ![Okarina Studio: Zelda im Mittelpunkt, zusätzliche Spielewelten und Sprachauswahl](docs/screenshots/zelda-de.png)
 
 ## Von den ersten Tönen bis zur ganzen Melodie

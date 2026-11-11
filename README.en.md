@@ -6,6 +6,10 @@
 
 [Download the Windows release](https://github.com/dantezukazero/Okarina-Studio/releases/latest) · [Deutsche README](README.md)
 
+If you enjoy Okarina Studio, you can support my work with a coffee:
+
+[![Buy me a coffee on Ko-fi](https://img.shields.io/badge/Buy_me_a_coffee-Ko--fi-FF5E5B?style=for-the-badge)](https://ko-fi.com/dantezukazero)
+
 ![Zelda is the main collection in Okarina Studio](docs/screenshots/zelda-de.png)
 
 ## Play and practice
