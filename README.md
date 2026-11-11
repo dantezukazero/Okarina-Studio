@@ -1,67 +1,60 @@
 # Okarina Studio
 
-**Lerne die Melodien aus The Legend of Zelda auf deiner echten 12-Loch-Okarina.** Von den ersten kurzen Spielmotiven aus *Ocarina of Time* bis zu längeren Melodiefassungen: Okarina Studio zeigt dir zu jedem Ton den passenden Griff und begleitet dich beim Üben.
+**Learn melodies from The Legend of Zelda on your real 12-hole ocarina.** Start with the short in-game motifs from *Ocarina of Time*, then practice longer melody arrangements with a fingering diagram for every note.
 
-**Zelda ist das Herzstück.** Final Fantasy und Kingdom Hearts erweitern die Bibliothek als zusätzliche Spielewelten. Die Windows-App läuft lokal und offline, mit auswählbarer Oberfläche auf **Deutsch oder Englisch**.
+**Zelda is the heart of the project.** Final Fantasy and Kingdom Hearts are additional collections. The Windows app works locally and offline, with selectable **English and German** interfaces.
 
-[Windows-Version herunterladen](https://github.com/dantezukazero/Okarina-Studio/releases/latest) · [English README](README.en.md) · [NFO](Okarina-Studio.nfo)
+[Download the Windows release](https://github.com/dantezukazero/Okarina-Studio/releases/latest) · [Deutsche README](README.de.md)
 
-Wenn dir Okarina Studio gefällt, kannst du meine Arbeit mit einem Kaffee unterstützen:
+If you enjoy Okarina Studio, you can support my work with a coffee:
 
-[![Buy me a coffee auf Ko-fi](https://img.shields.io/badge/Buy_me_a_coffee-Ko--fi-FF5E5B?style=for-the-badge)](https://ko-fi.com/dantezukazero)
+[![Buy me a coffee on Ko-fi](https://img.shields.io/badge/Buy_me_a_coffee-Ko--fi-FF5E5B?style=for-the-badge)](https://ko-fi.com/dantezukazero)
 
-![Okarina Studio: Zelda im Mittelpunkt, zusätzliche Spielewelten und Sprachauswahl](docs/screenshots/zelda-de.png)
+![Zelda is the main collection in Okarina Studio](docs/screenshots/zelda-en.png)
 
-## Von den ersten Tönen bis zur ganzen Melodie
+## From your first notes to the melodies of Hyrule
 
-Starte mit Zelda's Lullaby, Epona's Song, Saria's Song oder Song of Time. Höre die Töne an, schaue auf die mitlaufenden Griffbilder und übe einzelne Abschnitte in deinem eigenen Tempo. Für einige Motive stehen längere Bearbeitungen bereit, etwa Saria's Song und Song of Storms.
+Start with Zelda's Lullaby, Epona's Song, Saria's Song or Song of Time. Listen to the notes, follow the highlighted fingerings and repeat individual sections at your own pace. Some motifs also have longer arrangements, including Saria's Song and Song of Storms.
 
-![Zelda üben: Griffbilder, Tempo, Wiedergabe und Wiederholung](docs/screenshots/zelda-practice-de.png)
+![Practicing Zelda melodies with fingering diagrams, tempo controls and repeat](docs/screenshots/zelda-practice-en.png)
 
-## Die Spielebibliothek
+## Play and practice
 
-Version **1.2.0** enthält **86 kurze und längere Fassungen**:
+- Follow highlighted fingering diagrams while listening to a synthesized reference melody.
+- Adjust tempo, step through individual notes, repeat a section or the whole song.
+- Start with short motifs; try longer single-voice arrangements when you feel ready.
+- Identify your instrument's base tuning with a reference note and local microphone tuner.
+- Recalculate fingerings for the selected tuning, with marked octave adjustments when needed.
+- Create your own songs with durations and rests; back up as JSON and export PDF or SVG sheets.
+- Switch between English and German. In English, note B uses international notation; the German interface displays it as H. Song titles and stored note data are preserved.
 
-| Sammlung | Spiele | Fassungen |
+## Collections in version 1.2.0
+
+| Collection | Games | Short and long arrangements |
 | --- | --- | ---: |
-| **The Legend of Zelda – Hauptsammlung** | Ocarina of Time, Majora's Mask, The Wind Waker | 18 |
-| Final Fantasy – Zusatzsammlung | I, VI, VII, VIII, IX, X | 48 |
-| Kingdom Hearts – Zusatzsammlung | Kingdom Hearts | 20 |
+| **The Legend of Zelda — main collection** | Ocarina of Time, Majora's Mask, The Wind Waker | 18 |
+| Final Fantasy — additional collection | I, VI, VII, VIII, IX, X | 48 |
+| Kingdom Hearts — additional collection | Kingdom Hearts | 20 |
 
-**Neu: Kingdom Hearts.** Zehn Melodien gibt es jeweils als kurzen Einstieg und längere einstimmige Fassung: Dearly Beloved, Kairi's Theme, Destiny Islands, Traverse Town, Always on My Mind, Hollow Bastion, Hand in Hand, Dive into the Heart, Welcome to Wonderland und Never Land Sky.
+New Kingdom Hearts melodies: Dearly Beloved, Kairi's Theme, Destiny Islands, Traverse Town, Always on My Mind, Hollow Bastion, Hand in Hand, Dive into the Heart, Welcome to Wonderland, and Never Land Sky. Each comes with a short introduction and a longer arrangement.
 
-![Kingdom Hearts als zusätzliche Sammlung in der deutschen Oberfläche](docs/screenshots/kingdom-hearts-de.png)
+The Final Fantasy collection includes To Zanarkand, Suteki da ne, Besaid Island and Hymn of the Fayth from FFX, as well as Terra's Theme, Celes's Theme, Tifa's Theme, Aerith's Theme, Eyes on Me and Melodies of Life.
 
-Die Final-Fantasy-Erweiterung enthält unter anderem To Zanarkand, Suteki da ne, Besaid Island und Hymn of the Fayth aus FFX sowie Terra's Theme, Celes's Theme, Tifa's Theme, Aerith's Theme, Eyes on Me und Melodies of Life.
+![English interface with the additional Kingdom Hearts collection](docs/screenshots/kingdom-hearts-en.png)
 
-## Deutsch / English
+## The printed instrument
 
-Die Sprache lässt sich unten links umstellen und wird gespeichert. Auch Hilfe, Stimmgerät, Meldungen und Exporte passen sich an. Liedtitel und gespeicherte Notendaten bleiben erhalten; deutsche H-Noten werden bei englischer Anzeige als B dargestellt.
+The project was created for a resin-printed **Deluxe Ocarina – Fully Playable** by Joce's Designs:
 
-![Englische Oberfläche mit Kingdom-Hearts-Griffbildern](docs/screenshots/kingdom-hearts-en.png)
+[MakerWorld model and print profile](https://makerworld.com/de/models/1249288-deluxe-ocarina-fully-playable#profileId-1271476)
 
-## Funktionen
+Its actual tuning has not been verified. Open **Fingerings & first steps** in the app to measure the base fingering and select the appropriate tuning. The original fingering chart must match your instrument; one global tuning setting cannot correct inconsistent individual tone holes.
 
-- Bibliothek nach Spielreihe, Spiel, Schwierigkeit, Suchbegriff und Favoriten.
-- Kurze Einstiege und längere Melodiefassungen mit Griffbildern für jeden Ton.
-- Hörbare Referenztöne, Abspielen mit Markierung, Tempo, einzelne Schritte und Abschnittsschleifen.
-- Stimmung manuell einstellen oder mit einem Mikrofon bestimmen; Griffe werden entsprechend neu berechnet.
-- Sichtbar markierte Oktavanpassung für Töne außerhalb des Instrumentenumfangs.
-- Eigene Lieder mit Notenlängen und Pausen, automatische Speicherung, JSON-Import/-Export, PDF und SVG.
-- Neue Bibliotheksinhalte werden beim Update ergänzt. Eigene Lieder, bearbeitete oder gelöschte Einträge, Favoriten und Einstellungen bleiben erhalten.
-- Auswählbare Oberfläche auf Deutsch und Englisch, einschließlich Stimmgerätehilfe und Statusmeldungen.
+## Run or build
 
-## Gedruckte Okarina
+Download `Okarina-Studio.exe` from the release and double-click it. No installation is required. Close an older running version before replacing it.
 
-Dieses Projekt entstand für eine mit einem Resin-Drucker gefertigte **„Deluxe Ocarina – Fully Playable“ von Joce's Designs**:
-
-**[Modell und verwendetes Druckprofil auf MakerWorld](https://makerworld.com/de/models/1249288-deluxe-ocarina-fully-playable#profileId-1271476)**
-
-Die tatsächliche Stimmung dieses Drucks ist noch nicht verifiziert. Die App erklärt unter **„Griffe & erste Schritte“**, wie man den Grundgriff spielt, den klingenden Ton misst und die passende Stimmung einstellt. Die Ausgangsgriffe stammen aus der ursprünglichen HTML-Vorlage und setzen das entsprechende 12-Loch-Griffsystem voraus.
-
-## Starten und bauen
-
-Mit Node.js und npm im Quellverzeichnis:
+To run from source on Windows with Node.js and npm:
 
 ```powershell
 cd OkarinaStudio
@@ -69,19 +62,13 @@ npm ci
 npm start
 ```
 
-Die portable Windows-Datei erzeugen:
+Use `npm test` and `npm run test:ui` to run the checks. Build a portable Windows executable with `npm run build`; it appears in `OkarinaStudio/dist`.
 
-```powershell
-npm run build
-```
+After building, run `npm run release:package` to create a complete ZIP with the executable, NFO, German and English instructions, and checksums in `OkarinaStudio/dist/release`.
 
-Ergebnis: `OkarinaStudio/dist/Okarina-Studio.exe`. Per Doppelklick starten, keine Installation nötig. Die Datei wird nicht als Git-Quelldatei eingecheckt.
+User data is stored in `%APPDATA%/okarina-studio/library.json`. Updates add new bundled songs while preserving edits, deletions, custom songs, favorites, tuning and language settings. Keep an additional JSON backup using the app.
 
-Mit `npm run release:package` wird nach dem Build ein vollständiges ZIP mit EXE, NFO, deutscher und englischer Anleitung sowie Prüfsummen unter `OkarinaStudio/dist/release` erstellt.
-
-Eigene Daten liegen unter `%APPDATA%/okarina-studio/library.json`. Eine zusätzliche JSON-Sicherung lässt sich in der App anlegen. Sie enthält auch die Einstellungen. Bei einem Update die bisherige App schließen und die neue Version starten.
-
-## Entwicklung und Prüfung
+## Development and verification
 
 ```powershell
 cd OkarinaStudio
@@ -91,18 +78,20 @@ npm run build
 node scripts/packaged.cjs
 ```
 
-Die Tests prüfen unter anderem Transposition, Notenparser, synthetische Stimmgerätetöne, Datenmigration, Wiedergabe, Import/Export und die gepackte Windows-App. Eine Messung mit dem echten Mikrofon und dem gedruckten Instrument muss vor Ort erfolgen.
+Checks cover transposition, note parsing, synthetic tuner signals, library migration, language switching and persistence, playback, import/export, and the packaged Windows application. The real microphone and printed instrument must be checked locally.
 
-Die mitgelieferte `ui/library.js` reicht zum Starten und Bauen aus. Zum erneuten Erzeugen der Bibliothek aus den dokumentierten MIDI-Quellen dient `npm run library:prepare`. Es lädt die MIDI-Sammlung in ein lokal ignoriertes Verzeichnis; `scripts/library.cjs` dokumentiert die verwendeten Dateien, Stimmen und Oktavverschiebungen.
+The checked-in `ui/library.js` is sufficient to run and build the app. To regenerate the collection from the documented MIDI sources, use `npm run library:prepare`. Downloads remain in a locally ignored directory. `scripts/library.cjs` records the selected files, melody tracks and octave shifts.
 
-## Quellen und Einordnung
+## Sources
 
-Die langen Fassungen sind **einstimmige Bearbeitungen ausgewählter MIDI-Stimmen**, keine vollständigen Originalpartituren. Die Okarina kann Begleitung und Mehrstimmigkeit nicht vollständig wiedergeben. Die kurzen Fassungen sind Ausschnitte zum Einsteigen; „Einsteiger“ bedeutet nicht, dass alle enthaltenen chromatischen Griffe sofort leicht sind. Quelle und Bearbeitung stehen beim jeweiligen Lied.
+Longer versions are **single-voice adaptations of selected MIDI tracks**, not full original scores. One ocarina cannot reproduce all accompaniment and harmony. Beginner versions are short excerpts; the label does not mean every chromatic fingering is immediately easy. Sources and octave changes are shown for each song.
 
-- Die Zelda-Spielmotive und Ausgangsgriffe stammen aus `Okarina_Editor_Tablet.html`.
-- [Ocarina-of-Time-MIDI-Transkriptionen bei Classic Zelda](https://www.classiczelda.com/music/midi/zelda5/index.php).
-- [Video-Game-MIDI-Sammlung von ryanrudes](https://github.com/ryanrudes/game-midis); die darin enthaltene FFX-Sammlung stammt laut Archivhinweis von Rikku's World (Stand 2002). Einzelne Urheber sind im Archiv teilweise nicht ausgewiesen.
-- [Besaid Island bei Hell and Heaven Net](https://www.hellandheavennet.com/final-fantasy-10/midis.php).
-- [Blasdruck und Stimmung bei Pure Ocarinas](https://pureocarinas.com/ocarina-breath-curves).
+- The original Zelda motifs and fingering chart come from `Okarina_Editor_Tablet.html`.
+- [Ocarina of Time MIDI transcriptions at Classic Zelda](https://www.classiczelda.com/music/midi/zelda5/index.php).
+- [Video game MIDI collection by ryanrudes](https://github.com/ryanrudes/game-midis). Its FFX archive credits Rikku's World (2002); individual transcription authors are not always identified.
+- [Besaid Island at Hell and Heaven Net](https://www.hellandheavennet.com/final-fantasy-10/midis.php).
+- [Breath pressure and tuning explained by Pure Ocarinas](https://pureocarinas.com/ocarina-breath-curves).
 
-Inoffizielles Fanprojekt ohne Verbindung zu Nintendo, Square Enix oder Disney. Marken, Kompositionen und fremde Transkriptionen gehören ihren jeweiligen Rechteinhabern; für sie wird keine eigene Urheberschaft oder freie Lizenz behauptet. Die heruntergeladenen MIDI-Archive und Original-MIDI-Dateien sind nicht Bestandteil des Git-Repositories.
+Raw MIDI files and downloaded archives are excluded from Git.
+
+Unofficial fan project, not affiliated with Nintendo, Square Enix or Disney. Trademarks, compositions and third-party transcriptions belong to their respective rights holders; no ownership or free license is claimed for them.
