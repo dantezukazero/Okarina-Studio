@@ -1,0 +1,47 @@
+{
+  "name": "okarina-studio",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Offline Okarina-Lernprogramm",
+  "author": "Jason",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable --x64",
+    "test": "node --test tests/*.test.cjs",
+    "test:ui": "node scripts/smoke.cjs && node scripts/integration.cjs && node scripts/update-smoke.cjs",
+    "library:prepare": "node scripts/prepare-library.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "electron": "45.3.0",
+    "electron-builder": "26.18.0",
+    "prettier": "3.9.10"
+  },
+  "dependencies": {
+    "@tonejs/midi": "^2.0.28"
+  },
+  "build": {
+    "appId": "de.jason.okarina-studio",
+    "productName": "Okarina Studio",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "ui/**/*",
+      "package.json",
+      "icon.ico"
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": true,
+      "icon": "icon.ico",
+      "signExecutable": false
+    },
+    "portable": {
+      "artifactName": "Okarina-Studio.exe"
+    }
+  }
+}

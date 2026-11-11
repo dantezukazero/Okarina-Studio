@@ -1,0 +1,15 @@
+*.exe
+*.log
+*.tmp
+node_modules/
+dist/
+test-profile/
+OkarinaStudio/midis/
+OkarinaStudio/*.zip
+OkarinaStudio/*-tree*.json
+OkarinaStudio/*-source.html
+OkarinaStudio/midi-list.txt
+OkarinaStudio/*.png
+.DS_Store
+Thumbs.db
+Desktop.ini

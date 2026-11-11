@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'"
+    />
+    <title>Okarina Studio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#"
+        ><span class="brand-icon">◈</span
+        ><span>OKARINA<small>STUDIO / DEIN MUSIKABENTEUER</small></span></a
+      >
+      <div class="nav-label">DEINE BIBLIOTHEK</div>
+      <button class="nav active" data-family="all">
+        ♫ <span>Alle Melodien</span><b id="total"></b></button
+      ><button class="nav" data-family="favorites">
+        ☆ <span>Meine Favoriten</span>
+      </button>
+      <div class="nav-label">SPIELEWELTEN</div>
+      <div id="worlds"></div>
+      <div class="sidebar-bottom">
+        <div class="instrument">
+          ◌ <strong>Deine 12-Loch-Okarina</strong
+          ><small
+            >Deluxe Ocarina · gedrucktes Modell<br />Griffsystem: C ·
+            A4–F6</small
+          >
+        </div>
+        <button class="quiet" id="help">Griffe & erste Schritte ↗</button
+        ><button class="quiet" id="backup">Bibliothek sichern</button
+        ><button class="quiet" id="import">JSON importieren</button
+        ><span id="saveState">Alles lokal · offline spielbar</span>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header>
+        <div class="breadcrumb">
+          DEIN NÄCHSTES ABENTEUER BEGINNT MIT EINEM TON
+        </div>
+        <button id="new" class="outline">＋ Eigenes Lied</button>
+      </header>
+      <main>
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">SPIELEN. ÜBEN. ERINNERN.</div>
+            <h1>Melodien, die bleiben.</h1>
+            <p>Von den ersten sechs Tönen bis zur großen Spielmelodie.</p>
+          </div>
+          <div class="session-badge">
+            ✧ <span>Dein Tempo.<br /><strong>Dein Abenteuer.</strong></span>
+          </div>
+        </div>
+        <section class="hero">
+          <div>
+            <span class="eyebrow">THE LEGEND OF ZELDA</span>
+            <h2>Eine kleine Okarina.<br />Eine ganze Welt voller Musik.</h2>
+            <p>
+              Beginne mit den kurzen Spielmelodien aus Hyrule.<br />Wachse mit
+              längeren Fassungen über dich hinaus.
+            </p>
+            <button id="startZelda" class="gold">In Hyrule anfangen →</button
+            ><button id="startFfx" class="hero-secondary">
+              Final Fantasy X entdecken →
+            </button>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit"></div>
+            <div class="triforce">▲<br />▲ ▲</div>
+            <svg viewBox="0 0 260 170">
+              <path
+                d="M32 118 Q11 108 23 90 L43 70 Q45 33 89 28 Q157 15 241 70 Q259 85 231 96 L105 145 Q64 160 41 134Z"
+                fill="#577d9c"
+                stroke="#9ab5ba"
+                stroke-width="2"
+              />
+              <path d="M45 74 24 111 43 124 63 96" fill="#34556d" />
+              <g fill="#172c39" stroke="#a0b2ba" stroke-width="2">
+                <circle cx="77" cy="70" r="10" />
+                <circle cx="105" cy="58" r="10" />
+                <circle cx="136" cy="59" r="10" />
+                <circle cx="165" cy="70" r="10" />
+                <circle cx="194" cy="79" r="9" />
+                <circle cx="219" cy="83" r="7" />
+                <circle cx="118" cy="88" r="5" />
+                <circle cx="177" cy="99" r="5" />
+              </g>
+              <path d="M76 110 89 90 102 110Z" fill="#dac382" /></svg
+            ><span>12 LÖCHER. UNENDLICH VIELE GESCHICHTEN.</span>
+          </div>
+        </section>
+        <div class="library-heading">
+          <div>
+            <h2 id="libraryTitle">Deine Melodien</h2>
+            <span id="resultCount"></span>
+          </div>
+          <input
+            id="search"
+            type="search"
+            placeholder="Lied oder Spiel suchen …"
+            aria-label="Lied oder Spiel suchen"
+          />
+        </div>
+        <div class="filter-row">
+          <div class="tabs">
+            <button class="selected" data-level="all">Alle</button
+            ><button data-level="beginner">Einsteiger</button
+            ><button data-level="advanced">Fortgeschritten</button>
+          </div>
+          <select id="gameFilter" aria-label="Spiel auswählen">
+            <option value="all">Alle Spiele</option>
+          </select>
+        </div>
+        <div class="content-grid">
+          <section id="songs" class="song-list" aria-label="Melodien"></section>
+          <section id="practice" class="practice"></section>
+        </div>
+      </main>
+      <footer>
+        OKARINA STUDIO <span>Mit jedem Ton ein bisschen weiter.</span
+        ><span
+          >Inoffizielles Fanprojekt · keine Verbindung zu Nintendo oder Square
+          Enix</span
+        >
+      </footer>
+    </div>
+    <dialog id="editor">
+      <form id="songForm">
+        <div class="dialog-heading">
+          <h2>Liedwerkstatt</h2>
+          <button type="button" id="closeEditor" class="quiet">✕</button>
+        </div>
+        <label>Titel<input id="editTitle" required maxlength="160" /></label>
+        <div class="two-col">
+          <label
+            >Spielreihe<select id="editFamily">
+              <option>The Legend of Zelda</option>
+              <option>Final Fantasy</option>
+              <option>Eigene Sammlung</option>
+            </select></label
+          ><label
+            >Spiel / Teil<input id="editGame" required maxlength="120"
+          /></label>
+        </div>
+        <div class="two-col">
+          <label
+            >Schwierigkeit<select id="editLevel">
+              <option value="beginner">Einsteiger</option>
+              <option value="advanced">Fortgeschritten</option>
+            </select></label
+          ><label
+            >Tempo (BPM)<input
+              id="editBpm"
+              type="number"
+              min="30"
+              max="240"
+              value="90"
+              required
+          /></label>
+        </div>
+        <label
+          >Abschnitte und Töne<textarea
+            id="editNotes"
+            rows="8"
+            required
+            spellcheck="false"
+          ></textarea>
+        </label>
+        <p class="muted">
+          Je Zeile ein Abschnitt: <code>Melodie: D5 F5 D6:2 | R:1 A5:0.5</code
+          ><br />Notenlänge in Schlägen nach dem Doppelpunkt. R = Pause. B =
+          deutsches H. Ohne Länge = 1 Schlag.
+        </p>
+        <p id="editError" class="error" role="alert"></p>
+        <div class="dialog-actions">
+          <button id="deleteSong" type="button" class="danger">
+            Lied löschen</button
+          ><button class="gold" type="submit">Lied speichern</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="helpDialog">
+      <div class="dialog-heading">
+        <h2>Dein erster Ton</h2>
+        <button id="closeHelp" class="quiet">✕</button>
+      </div>
+      <p>
+        Die gefüllten Kreise zeigen geschlossene Löcher. Die zwei Kreise unter
+        der Trennlinie sind die Daumenlöcher; die kleinen Kreise sind die
+        Zusatzlöcher.
+      </p>
+      <div id="helpDiagram"></div>
+      <p>
+        <strong>Was bedeutet „in C“?</strong> Beim C-Grundgriff sind die acht
+        großen Fingerlöcher und beide Daumenlöcher zu, die zwei kleinen
+        Zusatzlöcher offen. Eine übliche Okarina in C spielt dabei C5. Ihre
+        Standardspanne reicht von A4 bis F6.
+      </p>
+      <p>
+        Dein Modell: <strong>Deluxe Ocarina – Fully Playable</strong> von Joce’s
+        Designs. Die tatsächliche Stimmung deines Resin-Drucks ist noch nicht
+        geprüft. Vergleiche den C-Grundgriff mit dem Referenzton. Über
+        „Stimmung“ wird die gemessene Grundstimmung eingestellt. Die App
+        berechnet dann die Griffe für alle Melodien neu; nötige Oktavänderungen
+        werden markiert.
+      </p>
+      <p>
+        Die Griffbelegungen stammen aus deiner HTML-Vorlage und müssen zu deinem
+        Instrument passen. Besonders Zusatzlöcher und hohe Töne können
+        abweichen.
+      </p>
+      <p>
+        <strong>So übst du:</strong> Erst die Einsteigermotive langsam spielen,
+        dann in Abschnitten wiederholen. Fortgeschrittene Fassungen sind
+        längere, einstimmige Bearbeitungen aus MIDI-Transkriptionen.
+        Oktavversetzungen sind gekennzeichnet. Die alten Motive hatten keine
+        Rhythmusangaben und werden deshalb zunächst in gleich langen Schritten
+        gespielt.
+      </p>
+      <p class="muted">
+        Leertaste: Start / Pause · ← / →: Ton wechseln. Eigene Lieder werden
+        automatisch auf diesem PC gespeichert. Sichere sie zusätzlich als JSON.
+      </p>
+    </dialog>
+    <div id="toast" role="status"></div>
+    <script src="core.js"></script>
+    <script src="library.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

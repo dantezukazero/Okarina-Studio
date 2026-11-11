@@ -1,0 +1,9 @@
+node_modules/
+dist/
+test-profile/
+*.png
+*.zip
+midis/
+*-tree*.json
+*-source.html
+midi-list.txt
