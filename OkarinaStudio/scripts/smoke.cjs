@@ -15,7 +15,7 @@ const fs = require("fs");
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.waitForSelector(".song-card");
-  assert.equal(await page.locator(".song-card").count(), 66);
+  assert.equal(await page.locator(".song-card").count(), 86);
   await page.screenshot({ path: "preview.png", fullPage: true });
   await page.getByRole("button", { name: "▶ Abspielen", exact: true }).click();
   await page.waitForTimeout(900);

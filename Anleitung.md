@@ -1,6 +1,6 @@
 # Okarina Studio
 
-Ein lokales Windows-Programm auf Grundlage von `../Okarina_Editor_Tablet.html`.
+Ein lokaler Zelda-Okarina-Trainer auf Grundlage von `../Okarina_Editor_Tablet.html`. Final Fantasy und Kingdom Hearts ergänzen Zelda als zusätzliche Sammlungen. Oberfläche wahlweise Deutsch oder Englisch.
 
 ## Start
 
@@ -8,7 +8,8 @@ Ein lokales Windows-Programm auf Grundlage von `../Okarina_Editor_Tablet.html`.
 
 ## Enthalten
 
-- 66 Fassungen: Zelda sowie Final Fantasy I, VI, VII, VIII, IX und X. Neu sind 14 FFX-Melodien jeweils als kurzer Einstieg und als längere Melodiefassung, darunter To Zanarkand, Suteki da ne, Besaid Island und Hymn of the Fayth.
+- 86 Fassungen: Zelda als Hauptsammlung, ergänzt um Final Fantasy I, VI, VII, VIII, IX und X sowie Kingdom Hearts. Neu: 10 Kingdom-Hearts-Melodien jeweils kurz und lang, darunter Dearly Beloved, Kairi's Theme, Traverse Town und Destiny Islands.
+- Sprache unten links umstellen: Deutsch / English. Die Auswahl wird gespeichert; englische Notennamen verwenden B anstelle des deutschen H. Gespeicherte Notendaten und eigene Titel bleiben erhalten.
 - Spielauswahl, Suchfeld, Einsteiger/Fortgeschrittene und Favoriten.
 - Synthetische Tonwiedergabe mit Griffmarkierung, Tempo, Einzelschritten, Abschnittsauswahl und Wiederholen.
 - Eigene Lieder mit Notenlängen und Pausen. Internationale Eingabe: B = deutsches H, A# = B. Anzeige verwendet H und B♭.
@@ -39,7 +40,7 @@ Längere Fassungen sind einstimmige Bearbeitungen ausgewählter MIDI-Stimmen, ke
 - Besaid Island: https://www.hellandheavennet.com/final-fantasy-10/midis.php
 - Stimmung, Blasdruck und Griffe: https://pureocarinas.com/ocarina-breath-curves und https://pureocarinas.com/about-pure-ocarinas
 
-Inoffizielles Fanprojekt. Zelda und Final Fantasy gehören ihren jeweiligen Rechteinhabern. Keine offiziellen Audiodateien oder Spielgrafiken enthalten. Rechte an Kompositionen und fremden MIDI-Transkriptionen werden nicht als eigene beansprucht. Original-MIDI-Dateien und heruntergeladene Archive werden nicht ins Git-Repository aufgenommen.
+Inoffizielles Fanprojekt ohne Verbindung zu Nintendo, Square Enix oder Disney. Marken und Kompositionen gehören ihren jeweiligen Rechteinhabern. Keine offiziellen Audiodateien oder Spielgrafiken enthalten. Rechte an Kompositionen und fremden MIDI-Transkriptionen werden nicht als eigene beansprucht. Original-MIDI-Dateien und heruntergeladene Archive werden nicht ins Git-Repository aufgenommen.
 
 ## Daten und Entwicklung
 
@@ -51,6 +52,7 @@ Eigene Bibliothek und Einstellungen: `%APPDATA%/okarina-studio/library.json`. Da
 - `node scripts/smoke.cjs`
 - `node scripts/integration.cjs`
 - `node scripts/update-smoke.cjs`
+- `node scripts/language-smoke.cjs`
 - `npm run build`
 - `node scripts/packaged.cjs`
 - Optional `npm run library:prepare`, um die mitgelieferte Bibliothek aus den dokumentierten Quelldateien neu zu erzeugen.

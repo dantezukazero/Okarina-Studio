@@ -203,6 +203,64 @@ const configs = [
     "Final Fantasy IX",
     0,
   ],
+  [
+    "Kingdom_Hearts__Dearly_Beloved.mid",
+    2,
+    "Dearly Beloved",
+    "Kingdom Hearts",
+    0,
+  ],
+  ["Kingdom_Hearts__Kairi.mid", 1, "Kairi's Theme", "Kingdom Hearts", 0],
+  [
+    "Kingdom_Hearts__Destiny_Islands.mid",
+    7,
+    "Destiny Islands",
+    "Kingdom Hearts",
+    12,
+  ],
+  [
+    "Kingdom_Hearts__Traverse_town.mid",
+    1,
+    "Traverse Town",
+    "Kingdom Hearts",
+    12,
+  ],
+  [
+    "Kingdom_Hearts__Always_On_My_Mind.mid",
+    7,
+    "Always on My Mind",
+    "Kingdom Hearts",
+    0,
+  ],
+  [
+    "Kingdom_Hearts__Hallow_Bastion.mid",
+    1,
+    "Hollow Bastion",
+    "Kingdom Hearts",
+    12,
+  ],
+  ["Kingdom_Hearts__Hand_In_Hand.mid", 13, "Hand in Hand", "Kingdom Hearts", 0],
+  [
+    "Kingdom_Hearts__Dive_Into_The_Heart.mid",
+    21,
+    "Dive into the Heart",
+    "Kingdom Hearts",
+    -12,
+  ],
+  [
+    "Kingdom_Hearts__Wonderland.mid",
+    3,
+    "Welcome to Wonderland",
+    "Kingdom Hearts",
+    12,
+  ],
+  [
+    "Kingdom_Hearts__Neverland_Sky.mid",
+    1,
+    "Never Land Sky",
+    "Kingdom Hearts",
+    0,
+  ],
 ];
 
 function excerpt(events, limit = 12) {
@@ -259,7 +317,12 @@ for (const [file, track, title, game, shift] of configs) {
       label: "Abschnitt " + (sections.length + 1),
       events: events.slice(i, i + 16),
     });
-  const isZelda = !file.startsWith("Final");
+  const family = file.startsWith("Kingdom_Hearts")
+    ? "Kingdom Hearts"
+    : file.startsWith("Final")
+      ? "Final Fantasy"
+      : "The Legend of Zelda";
+  const isZelda = family === "The Legend of Zelda";
   const sourceUrl = file.includes("Besaid_Island")
     ? "https://www.hellandheavennet.com/final-fantasy-10/midis.php"
     : file.startsWith("OOT")
@@ -273,7 +336,7 @@ for (const [file, track, title, game, shift] of configs) {
     id: "midi-" + songs.length,
     title,
     game,
-    family: isZelda ? "The Legend of Zelda" : "Final Fantasy",
+    family,
     level: "advanced",
     bpm: Math.min(
       240,
@@ -299,7 +362,7 @@ for (const [file, track, title, game, shift] of configs) {
       id: "excerpt-" + songs.length,
       title,
       game,
-      family: "Final Fantasy",
+      family,
       level: "beginner",
       bpm: 75,
       source:

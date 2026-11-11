@@ -25,6 +25,13 @@
       <div class="nav-label">SPIELEWELTEN</div>
       <div id="worlds"></div>
       <div class="sidebar-bottom">
+        <label class="language-control"
+          >Sprache
+          <select id="language" aria-label="Sprache">
+            <option value="de">Deutsch</option>
+            <option value="en">English</option>
+          </select>
+        </label>
         <div class="instrument">
           ◌ <strong>Deine 12-Loch-Okarina</strong
           ><small
@@ -64,10 +71,7 @@
               Beginne mit den kurzen Spielmelodien aus Hyrule.<br />Wachse mit
               längeren Fassungen über dich hinaus.
             </p>
-            <button id="startZelda" class="gold">In Hyrule anfangen →</button
-            ><button id="startFfx" class="hero-secondary">
-              Final Fantasy X entdecken →
-            </button>
+            <button id="startZelda" class="gold">In Hyrule anfangen →</button>
           </div>
           <div class="hero-art" aria-hidden="true">
             <div class="orbit"></div>
@@ -94,6 +98,14 @@
             ><span>12 LÖCHER. UNENDLICH VIELE GESCHICHTEN.</span>
           </div>
         </section>
+        <div class="extra-worlds">
+          <span>Weitere Spielewelten</span
+          ><button id="startFfx" class="outline">
+            Final Fantasy X entdecken →</button
+          ><button id="startKh" class="outline">
+            Kingdom Hearts entdecken →
+          </button>
+        </div>
         <div class="library-heading">
           <div>
             <h2 id="libraryTitle">Deine Melodien</h2>
@@ -124,8 +136,8 @@
       <footer>
         OKARINA STUDIO <span>Mit jedem Ton ein bisschen weiter.</span
         ><span
-          >Inoffizielles Fanprojekt · keine Verbindung zu Nintendo oder Square
-          Enix</span
+          >Inoffizielles Fanprojekt · keine Verbindung zu Nintendo, Square Enix
+          oder Disney</span
         >
       </footer>
     </div>
@@ -141,6 +153,7 @@
             >Spielreihe<select id="editFamily">
               <option>The Legend of Zelda</option>
               <option>Final Fantasy</option>
+              <option>Kingdom Hearts</option>
               <option>Eigene Sammlung</option>
             </select></label
           ><label
@@ -230,6 +243,7 @@
     <div id="toast" role="status"></div>
     <script src="core.js"></script>
     <script src="library.js"></script>
+    <script src="i18n.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

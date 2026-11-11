@@ -10,7 +10,7 @@ const { _electron: electron } = require("@playwright/test"),
   const bundled = sandbox.window.LIBRARY,
     profile = fs.mkdtempSync(path.join(os.tmpdir(), "okarina-update-"));
   const old = structuredClone(bundled);
-  old.songs = old.songs.slice(1, 30);
+  old.songs = old.songs.slice(1, 66);
   old.songs[0].title = "Bearbeitet vor Update";
   old.songs.push({
     id: "custom-update",
@@ -21,7 +21,7 @@ const { _electron: electron } = require("@playwright/test"),
     bpm: 80,
     sections: [{ label: "Test", events: [{ note: "C5", beats: 1 }] }],
   });
-  delete old.bundledIds;
+  old.bundledIds=bundled.songs.slice(0,66).map(s=>s.id);
   delete old.legacyBundledIds;
   old.settings = { offset: 7, fold: false, favorites: ["original-1"] };
   fs.writeFileSync(path.join(profile, "library.json"), JSON.stringify(old));
@@ -37,7 +37,7 @@ const { _electron: electron } = require("@playwright/test"),
     await page.waitForFunction(() =>
       document.querySelector("#saveState").textContent.includes("Gespeichert"),
     );
-    assert.equal(await page.locator(".song-card").count(), 66);
+    assert.equal(await page.locator(".song-card").count(), 86);
     assert.equal(await page.locator("#tuning").inputValue(), "7");
     assert.equal(await page.locator("#fold").isChecked(), false);
     assert.equal(
@@ -65,7 +65,7 @@ const { _electron: electron } = require("@playwright/test"),
     await page.screenshot({ path: "ffx-preview.png", fullPage: true });
     await page.reload();
     await page.waitForSelector(".song-card");
-    assert.equal(await page.locator(".song-card").count(), 66);
+    assert.equal(await page.locator(".song-card").count(), 86);
     const data = await page.evaluate(() => window.desktop.load());
     assert.ok(data.songs.some((s) => s.id === "custom-update"));
     assert.equal(
@@ -74,7 +74,7 @@ const { _electron: electron } = require("@playwright/test"),
     );
     assert.deepEqual(data.settings.favorites, ["original-1"]);
     console.log(
-      "Update passed: 36 new versions once, no duplicates; edits/deletions/custom songs/favorites/tuning preserved; FFX shortcut and both variants playable.",
+      "Update passed: 20 new versions once, no duplicates; edits/deletions/custom songs/favorites/tuning preserved; FFX shortcut and both variants playable.",
     );
   } finally {
     await app.close();

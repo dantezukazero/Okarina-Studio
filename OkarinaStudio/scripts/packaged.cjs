@@ -15,7 +15,11 @@ const { _electron: electron } = require("@playwright/test"),
   try {
     const page = await app.firstWindow();
     await page.waitForSelector(".song-card");
-    assert.equal(await page.locator(".song-card").count(), 66);
+    assert.equal(await page.locator(".song-card").count(), 86);
+    await page.locator("#language").selectOption("en");
+    await page.waitForFunction(()=>document.querySelector("#play").textContent==="▶ Play");
+    await page.locator("#language").selectOption("de");
+    await page.waitForFunction(()=>document.querySelector("#play").textContent==="▶ Abspielen");
     const file = path.join(profile, "song.svg");
     await app.evaluate(({ dialog }, file) => {
       dialog.showSaveDialog = async () => ({ canceled: false, filePath: file });
@@ -41,7 +45,7 @@ const { _electron: electron } = require("@playwright/test"),
       false,
     );
     console.log(
-      "Packaged app passed: startup with 66 versions, SVG export, no horizontal overflow at 1000px.",
+      "Packaged app passed: startup with 86 versions, SVG export, no horizontal overflow at 1000px.",
     );
     console.log(
       "User data path: " +

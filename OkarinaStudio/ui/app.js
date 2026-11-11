@@ -13,7 +13,7 @@ const $ = (id) => document.getElementById(id),
         })[c],
     );
 let library = structuredClone(window.LIBRARY),
-  settings = { offset: 0, fold: true, favorites: [] },
+  settings = { offset: 0, fold: true, favorites: [], language: "de" },
   selected = library.songs[0].id,
   family = "all",
   game = "all",
@@ -36,6 +36,7 @@ const song = () => library.songs.find((s) => s.id === selected),
       s.events.map((e) => ({ ...e, section })),
     ),
   resolved = (e) => Core.resolve(e.note, +settings.offset, settings.fold);
+const display = (note) => Core.display(note, settings.language);
 const POS = {
   L4: [51, 48, 8.7],
   L3: [73, 42, 8.7],
@@ -56,7 +57,7 @@ function diagram(note) {
   const holes = library.fingerings[note];
   if (!holes)
     return '<svg viewBox="0 0 230 124"><text x="115" y="73" text-anchor="middle" fill="#b57853" font-size="13">Außerhalb des Umfangs</text></svg>';
-  return `<svg viewBox="0 0 230 124" role="img" aria-label="Griff ${esc(Core.display(note))}"><path d="M31 77 Q18 70 14 81 L9 101 Q10 109 20 111 L35 99Z" fill="#e0e9d9" stroke="#8a9b79"/><path d="M34 77 Q33 54 47 37 Q66 22 97 22 Q148 23 212 49 Q222 54 220 63 Q219 67 211 70 Q174 87 116 108 Q87 118 57 111 L31 103 Q21 97 34 77Z" fill="#fafbf3" stroke="#8a9b79" stroke-width="2"/><path d="M37 83 208 83" stroke="#d9e1cf"/>${Object.entries(
+  return `<svg viewBox="0 0 230 124" role="img" aria-label="Griff ${esc(display(note))}"><path d="M31 77 Q18 70 14 81 L9 101 Q10 109 20 111 L35 99Z" fill="#e0e9d9" stroke="#8a9b79"/><path d="M34 77 Q33 54 47 37 Q66 22 97 22 Q148 23 212 49 Q222 54 220 63 Q219 67 211 70 Q174 87 116 108 Q87 118 57 111 L31 103 Q21 97 34 77Z" fill="#fafbf3" stroke="#8a9b79" stroke-width="2"/><path d="M37 83 208 83" stroke="#d9e1cf"/>${Object.entries(
     POS,
   )
     .map(
@@ -214,12 +215,20 @@ function renderWorlds() {
         ? -1
         : b === "The Legend of Zelda"
           ? 1
-          : a.localeCompare(b),
+          : a === "Final Fantasy"
+            ? -1
+            : b === "Final Fantasy"
+              ? 1
+              : a === "Kingdom Hearts"
+                ? -1
+                : b === "Kingdom Hearts"
+                  ? 1
+                  : a.localeCompare(b),
   );
   $("worlds").innerHTML = families
     .map(
       (f) =>
-        `<button class="nav ${family === f ? "active" : ""}" data-family="${esc(f)}">${f === "The Legend of Zelda" ? "△" : f === "Final Fantasy" ? "✦" : "♫"} <span>${esc(f === "The Legend of Zelda" ? "The Legend of Zelda" : f)}</span></button>${family === f ? [...new Set(library.songs.filter((s) => s.family === f).map((s) => s.game))].map((g) => `<button class="game-nav ${game === g ? "active" : ""}" data-game="${esc(g)}">${esc(g)}</button>`).join("") : ""}`,
+        `<button class="nav ${family === f ? "active" : ""}" data-family="${esc(f)}">${f === "The Legend of Zelda" ? "△" : f === "Final Fantasy" ? "✦" : "♫"} <span>${esc(f === "The Legend of Zelda" ? "The Legend of Zelda" : f)}</span></button>${family === f ? [...new Set(library.songs.filter((s) => s.family === f).map((s) => s.game))].map((g) => `<button data-user-text class="game-nav ${game === g ? "active" : ""}" data-game="${esc(g)}">${esc(g)}</button>`).join("") : ""}`,
     )
     .join("");
   document.querySelectorAll("[data-family]").forEach(
@@ -259,7 +268,9 @@ function renderGameFilter() {
   ];
   $("gameFilter").innerHTML =
     '<option value="all">Alle Spiele</option>' +
-    games.map((g) => `<option>${esc(g)}</option>`).join("");
+    games
+      .map((g) => `<option value="${esc(g)}" data-user-text>${esc(g)}</option>`)
+      .join("");
   $("gameFilter").value = game;
 }
 function renderList() {
@@ -296,7 +307,7 @@ function tuningOptions() {
   return Array.from({ length: 25 }, (_, i) => i - 12)
     .map(
       (n) =>
-        `<option value="${n}" ${+settings.offset === n ? "selected" : ""}>${Core.display(Core.name(72 + n))}${n === 0 ? " · Standard" : ""}</option>`,
+        `<option value="${n}" ${+settings.offset === n ? "selected" : ""}>${display(Core.name(72 + n))}${n === 0 ? " · Standard" : ""}</option>`,
     )
     .join("");
 }
@@ -312,14 +323,14 @@ function renderPractice() {
     ).length,
     invalid = events.filter((e) => !resolved(e).valid).length;
   $("practice").innerHTML =
-    `<div class="practice-head"><div class="practice-top"><span class="tag">${esc(s.family.toUpperCase())}</span><button class="star" id="favorite" aria-label="Favorit umschalten">${settings.favorites.includes(s.id) ? "★" : "☆"}</button></div><h2>${esc(s.title)}</h2><div class="print-title">12-Loch-Okarina · Stimmung ${esc(Core.display(Core.name(72 + settings.offset)))} · klingende Töne</div><div class="practice-sub">${esc(s.game)} · ${s.level === "beginner" ? "Kurze Einstiegsfassung" : "Längere Melodiefassung"}</div><div class="variant-row">${variants.map((v) => `<button class="variant ${v.id === s.id ? "active" : ""}" data-variant="${esc(v.id)}">${v.level === "beginner" ? "Einsteiger · kurz" : "Fortgeschritten · lang"}</button>`).join("")}<button class="variant" id="edit">Bearbeiten</button><button class="variant" id="pdf">PDF speichern</button><button class="variant" id="svg">SVG speichern</button></div></div><div class="player"><div class="player-buttons"><button class="play" id="play">▶ Abspielen</button><button class="step" id="previous" aria-label="Vorheriger Ton">‹</button><button class="step" id="next" aria-label="Nächster Ton">›</button><button class="step" id="restart" aria-label="Zum Anfang">↺</button><label><input type="checkbox" id="loop" ${loop ? "checked" : ""}> Wiederholen</label><span class="muted" id="progress"></span></div><div class="player-settings"><label>Tempo <input type="number" id="tempo" min="30" max="240" value="${tempo}"> BPM</label><label>Stimmung <select id="tuning">${tuningOptions()}</select></label><label><input type="checkbox" id="fold" ${settings.fold ? "checked" : ""}> Oktaven anpassen</label><button class="quiet" id="openTuner">Stimmung finden ↗</button></div><div class="player-settings"><label>Üben <select id="sectionLoop"><option value="-1">Ganzes Lied</option>${s.sections.map((sec, i) => `<option value="${i}" ${loopSection === i ? "selected" : ""}>${esc(sec.label)}</option>`).join("")}</select></label></div></div><div class="notes-area" id="noteScroll">${invalid ? `<div class="notice">${invalid} Töne liegen außerhalb des Tonumfangs. Aktiviere die Oktavanpassung oder verwende eine andere Fassung.</div>` : ""}${adjusted ? `<div class="notice">↕ ${adjusted} Töne sind für den Tonumfang oktavversetzt. Markierte Karten zeigen die angepasste Fassung.</div>` : ""}${s.sections
+    `<div class="practice-head"><div class="practice-top"><span class="tag" data-user-text>${esc(s.family.toUpperCase())}</span><button class="star" id="favorite" aria-label="Favorit umschalten">${settings.favorites.includes(s.id) ? "★" : "☆"}</button></div><h2>${esc(s.title)}</h2><div class="print-title">12-Loch-Okarina · Stimmung ${esc(display(Core.name(72 + settings.offset)))} · klingende Töne</div><div class="practice-sub">${esc(s.game)} · ${s.level === "beginner" ? "Kurze Einstiegsfassung" : "Längere Melodiefassung"}</div><div class="variant-row">${variants.map((v) => `<button class="variant ${v.id === s.id ? "active" : ""}" data-variant="${esc(v.id)}">${v.level === "beginner" ? "Einsteiger · kurz" : "Fortgeschritten · lang"}</button>`).join("")}<button class="variant" id="edit">Bearbeiten</button><button class="variant" id="pdf">PDF speichern</button><button class="variant" id="svg">SVG speichern</button></div></div><div class="player"><div class="player-buttons"><button class="play" id="play">▶ Abspielen</button><button class="step" id="previous" aria-label="Vorheriger Ton">‹</button><button class="step" id="next" aria-label="Nächster Ton">›</button><button class="step" id="restart" aria-label="Zum Anfang">↺</button><label><input type="checkbox" id="loop" ${loop ? "checked" : ""}> Wiederholen</label><span class="muted" id="progress"></span></div><div class="player-settings"><label>Tempo <input type="number" id="tempo" min="30" max="240" value="${tempo}"> BPM</label><label>Stimmung <select id="tuning">${tuningOptions()}</select></label><label><input type="checkbox" id="fold" ${settings.fold ? "checked" : ""}> Oktaven anpassen</label><button class="quiet" id="openTuner">Stimmung finden ↗</button></div><div class="player-settings"><label>Üben <select id="sectionLoop"><option value="-1">Ganzes Lied</option>${s.sections.map((sec, i) => `<option value="${i}" ${loopSection === i ? "selected" : ""}>${esc(sec.label)}</option>`).join("")}</select></label></div></div><div class="notes-area" id="noteScroll">${invalid ? `<div class="notice">${invalid} Töne liegen außerhalb des Tonumfangs. Aktiviere die Oktavanpassung oder verwende eine andere Fassung.</div>` : ""}${adjusted ? `<div class="notice">↕ ${adjusted} Töne sind für den Tonumfang oktavversetzt. Markierte Karten zeigen die angepasste Fassung.</div>` : ""}${s.sections
       .map(
         (sec) =>
           `<div class="section-title"><span>${esc(sec.label)}</span></div><div class="notes">${sec.events
             .map((e) => {
               const r = resolved(e),
                 i = count++;
-              return `<button class="note ${r.valid ? "" : "invalid"} ${r.shifted || e.baseFold ? "shifted" : ""}" data-index="${i}" aria-label="${esc(r.note === "R" ? "Pause" : Core.display(r.note))}, ${e.beats} Schläge">${diagram(r.valid ? r.grip : "invalid")}<strong>${r.note === "R" ? "Pause" : esc(Core.display(r.note))}</strong><small>${+e.beats.toFixed(2)} ${e.beats === 1 ? "Schlag" : "Schläge"}${+settings.offset !== 0 && r.note !== "R" ? " · Griff " + esc(Core.display(r.grip)) : ""}</small></button>`;
+              return `<button class="note ${r.valid ? "" : "invalid"} ${r.shifted || e.baseFold ? "shifted" : ""}" data-index="${i}" aria-label="${esc(r.note === "R" ? "Pause" : display(r.note))}, ${e.beats} Schläge">${diagram(r.valid ? r.grip : "invalid")}<strong>${r.note === "R" ? "Pause" : esc(display(r.note))}</strong><small>${+e.beats.toFixed(2)} ${e.beats === 1 ? "Schlag" : "Schläge"}${+settings.offset !== 0 && r.note !== "R" ? " · Griff " + esc(display(r.grip)) : ""}</small></button>`;
             })
             .join("")}</div>`,
       )
@@ -404,7 +415,7 @@ async function exportSvg() {
   try {
     const s = song();
     let y = 110;
-    let content = `<rect width="100%" height="100%" fill="#fffef9"/><text x="30" y="42" font-family="Georgia,serif" font-size="28" fill="#285843">${esc(s.title)}</text><text x="30" y="70" font-family="sans-serif" font-size="13" fill="#65785e">${esc(s.game)} · Stimmung ${esc(Core.display(Core.name(72 + settings.offset)))}</text>`;
+    let content = `<rect width="100%" height="100%" fill="#fffef9"/><text x="30" y="42" font-family="Georgia,serif" font-size="28" fill="#285843">${esc(s.title)}</text><text x="30" y="70" font-family="sans-serif" font-size="13" fill="#65785e">${esc(s.game)} · ${I18n.text("Stimmung")} ${esc(display(Core.name(72 + settings.offset)))}</text>`;
     for (const sec of s.sections) {
       content += `<text x="30" y="${y}" font-family="sans-serif" font-size="16" fill="#285843">${esc(sec.label)}</text>`;
       y += 18;
@@ -412,20 +423,21 @@ async function exportSvg() {
         const r = resolved(e),
           x = 30 + (i % 6) * 155,
           cy = y + Math.floor(i / 6) * 125;
-        content += `<g transform="translate(${x},${cy})">${diagram(r.valid ? r.grip : "invalid").replace("<svg ", '<svg width="145" height="90" ')}<text x="72" y="105" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#285843">${r.note === "R" ? "Pause" : esc(Core.display(r.note))}${r.shifted || e.baseFold ? " ↕" : ""} · ${+e.beats.toFixed(2)}</text></g>`;
+        content += `<g transform="translate(${x},${cy})">${diagram(r.valid ? r.grip : "invalid").replace("<svg ", '<svg width="145" height="90" ')}<text x="72" y="105" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#285843">${r.note === "R" ? I18n.text("Pause") : esc(display(r.note))}${r.shifted || e.baseFold ? " ↕" : ""} · ${+e.beats.toFixed(2)}</text></g>`;
       });
       y += Math.ceil(sec.events.length / 6) * 125 + 30;
     }
-    content += `<text x="30" y="${y}" font-family="sans-serif" font-size="11" fill="#65785e">Gefüllt = schließen · unten = Daumen · ↕ = oktavversetzt · Längen in Schlägen</text>`;
+    content += `<text x="30" y="${y}" font-family="sans-serif" font-size="11" fill="#65785e">${I18n.text("Gefüllt = schließen · unten = Daumen · ↕ = oktavversetzt · Längen in Schlägen")}</text>`;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="990" height="${y + 40}" viewBox="0 0 990 ${y + 40}">${content}</svg>`;
-    if (await window.desktop.svg(svg)) notify("SVG gespeichert.");
+    if (await window.desktop.svg(I18n.localizeSvg(svg)))
+      notify("SVG gespeichert.");
   } catch (e) {
     notify("SVG fehlgeschlagen: " + e.message);
   }
 }
 function updateInstrument() {
   document.querySelector(".instrument small").innerHTML =
-    `Deluxe Ocarina · gedrucktes Modell<br>Stimmung: ${esc(Core.display(Core.name(72 + settings.offset)))} · ${esc(Core.display(Core.name(69 + settings.offset)))}–${esc(Core.display(Core.name(89 + settings.offset)))}`;
+    `Deluxe Ocarina · gedrucktes Modell<br>Stimmung: ${esc(display(Core.name(72 + settings.offset)))} · ${esc(display(Core.name(69 + settings.offset)))}–${esc(display(Core.name(89 + settings.offset)))}`;
 }
 function openEditor(s) {
   stop();
@@ -498,7 +510,9 @@ $("deleteSong").onclick = () => {
   }
   if (
     !confirm(
-      "Dieses Lied löschen? Ein Backup lässt sich später wieder importieren.",
+      I18n.text(
+        "Dieses Lied löschen? Ein Backup lässt sich später wieder importieren.",
+      ),
     )
   )
     return;
@@ -731,7 +745,7 @@ function applyTuning(offset) {
   $("manualTuning").value = String(offset);
   notify(
     "Stimmung " +
-      Core.display(Core.name(72 + offset)) +
+      display(Core.name(72 + offset)) +
       " übernommen. Alle Griffbilder neu berechnet.",
   );
 }
@@ -779,7 +793,7 @@ async function startTuner() {
             nearest = Math.round(floating),
             cents = Math.round((floating - nearest) * 100);
           $("tunerReadout").textContent =
-            `${Core.display(Core.name(nearest))} · ${Math.round(freq)} Hz · ${cents > 0 ? "+" : ""}${cents} Cent`;
+            `${display(Core.name(nearest))} · ${Math.round(freq)} Hz · ${cents > 0 ? "+" : ""}${cents} Cent`;
           tunerHistory.push(nearest);
           if (tunerHistory.length > 12) tunerHistory.shift();
           const stable =
@@ -832,6 +846,40 @@ document.addEventListener("keydown", (e) => {
     step(1);
   }
 });
+$("startKh").onclick = () => {
+  family = "Kingdom Hearts";
+  game = "Kingdom Hearts";
+  level = "all";
+  query = "";
+  $("search").value = "";
+  document
+    .querySelectorAll("[data-level]")
+    .forEach((b) => b.classList.toggle("selected", b.dataset.level === level));
+  renderWorlds();
+  renderGameFilter();
+  selectSong(
+    library.songs.find(
+      (s) =>
+        s.family === family &&
+        s.title === "Dearly Beloved" &&
+        s.level === "beginner",
+    ).id,
+  );
+  $("libraryTitle").scrollIntoView({ behavior: "smooth" });
+};
+$("language").onchange = (e) => {
+  stop();
+  settings.language = e.target.value;
+  I18n.setLanguage(settings.language);
+  renderWorlds();
+  renderGameFilter();
+  renderList();
+  renderPractice();
+  updateInstrument();
+  if ($("manualTuning")) $("manualTuning").innerHTML = tuningOptions();
+  persist();
+};
+I18n.start();
 (async () => {
   let added = 0,
     needsSave = false;
@@ -843,6 +891,7 @@ document.addEventListener("keydown", (e) => {
       added = update.added;
       needsSave = added > 0 || !Array.isArray(stored.bundledIds);
       if (stored.settings) {
+        settings.language = stored.settings.language === "en" ? "en" : "de";
         settings.offset =
           Number.isInteger(stored.settings.offset) &&
           Math.abs(stored.settings.offset) <= 12
@@ -857,6 +906,7 @@ document.addEventListener("keydown", (e) => {
   } catch (e) {
     notify("Gespeicherte Bibliothek konnte nicht geladen werden: " + e.message);
   }
+  I18n.setLanguage(settings.language);
   selected = library.songs[0].id;
   tempo = song().bpm;
   renderWorlds();

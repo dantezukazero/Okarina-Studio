@@ -22,7 +22,8 @@
   function name(n) {
     return names[((n % 12) + 12) % 12] + (Math.floor(n / 12) - 1);
   }
-  function display(n) {
+  function display(n, language = "de") {
+    if (language === "en") return String(n).replace("#", "♯");
     return String(n).replace(/^B/, "H").replace(/^A#/, "B♭").replace("#", "♯");
   }
   function parse(text, fingerings) {

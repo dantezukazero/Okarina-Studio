@@ -878,3 +878,35 @@ form textarea {
     display: none;
   }
 }
+
+.language-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #becdbf;
+  font-size: 11px;
+  margin-bottom: 16px;
+}
+.language-control select {
+  margin-left: auto;
+  background: #213e31;
+  color: #e8e9d5;
+  border-color: #4c634e;
+}
+.extra-worlds {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 0 0;
+}
+.extra-worlds > span {
+  font-size: 10px;
+  color: #8a927f;
+  margin-right: auto;
+}
+@media print {
+  .extra-worlds {
+    display: none;
+  }
+}

@@ -1,16 +1,17 @@
 {
   "name": "okarina-studio",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "Offline Okarina-Lernprogramm",
+  "description": "Zelda-Okarina-Trainer mit zusätzlichen Final-Fantasy- und Kingdom-Hearts-Sammlungen",
   "author": "Jason",
   "main": "main.cjs",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --win portable --x64",
     "test": "node --test tests/*.test.cjs",
-    "test:ui": "node scripts/smoke.cjs && node scripts/integration.cjs && node scripts/update-smoke.cjs",
-    "library:prepare": "node scripts/prepare-library.cjs"
+    "test:ui": "node scripts/smoke.cjs && node scripts/integration.cjs && node scripts/update-smoke.cjs && node scripts/language-smoke.cjs",
+    "library:prepare": "node scripts/prepare-library.cjs",
+    "release:package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",

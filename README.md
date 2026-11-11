@@ -1,22 +1,40 @@
 # Okarina Studio
 
-Ein deutschsprachiges Windows-Lernprogramm für die 12-Loch-Okarina: Spielebibliothek, Griffbilder, Melodiewiedergabe, Übungsmodus und eine Hilfe zum Bestimmen der Instrumentenstimmung. Alles läuft lokal und offline; ein Mikrofon wird nur auf Knopfdruck für das Stimmgerät verwendet.
+**Lerne die Melodien aus The Legend of Zelda auf deiner echten 12-Loch-Okarina.** Von den ersten kurzen Spielmotiven aus *Ocarina of Time* bis zu längeren Melodiefassungen: Okarina Studio zeigt dir zu jedem Ton den passenden Griff und begleitet dich beim Üben.
 
-## Version 1.1 – mehr Final Fantasy, besonders FFX
+**Zelda ist das Herzstück.** Final Fantasy und Kingdom Hearts erweitern die Bibliothek als zusätzliche Spielewelten. Die Windows-App läuft lokal und offline, mit auswählbarer Oberfläche auf **Deutsch oder Englisch**.
 
-Die Bibliothek umfasst **66 Fassungen**. **14 Melodien aus Final Fantasy X** gibt es jeweils als kurzen Einstieg und als längere einstimmige Bearbeitung:
+[Windows-Version herunterladen](https://github.com/dantezukazero/Okarina-Studio/releases/latest) · [English README](README.en.md) · [NFO](Okarina-Studio.nfo)
 
-| Final Fantasy X | Final Fantasy X |
-| --- | --- |
-| To Zanarkand | Suteki da ne |
-| Besaid Island | Hymn of the Fayth |
-| Yuna's Theme | Tidus's Theme |
-| Rikku's Theme | Lulu's Theme |
-| Auron's Theme | Scenery of Spira |
-| Someday the Dream Will End | Silence Before the Storm |
-| Thunder Plains | Wandering Flames |
+![Okarina Studio: Zelda im Mittelpunkt, zusätzliche Spielewelten und Sprachauswahl](docs/screenshots/zelda-de.png)
 
-Außerdem: Zelda (Ocarina of Time, Majora's Mask, The Wind Waker) sowie Final Fantasy I, VI, VII, VIII und IX – darunter Terra's Theme, Celes's Theme, Tifa's Theme, Aerith's Theme, Eyes on Me und Melodies of Life.
+## Von den ersten Tönen bis zur ganzen Melodie
+
+Starte mit Zelda's Lullaby, Epona's Song, Saria's Song oder Song of Time. Höre die Töne an, schaue auf die mitlaufenden Griffbilder und übe einzelne Abschnitte in deinem eigenen Tempo. Für einige Motive stehen längere Bearbeitungen bereit, etwa Saria's Song und Song of Storms.
+
+![Zelda üben: Griffbilder, Tempo, Wiedergabe und Wiederholung](docs/screenshots/zelda-practice-de.png)
+
+## Die Spielebibliothek
+
+Version **1.2.0** enthält **86 kurze und längere Fassungen**:
+
+| Sammlung | Spiele | Fassungen |
+| --- | --- | ---: |
+| **The Legend of Zelda – Hauptsammlung** | Ocarina of Time, Majora's Mask, The Wind Waker | 18 |
+| Final Fantasy – Zusatzsammlung | I, VI, VII, VIII, IX, X | 48 |
+| Kingdom Hearts – Zusatzsammlung | Kingdom Hearts | 20 |
+
+**Neu: Kingdom Hearts.** Zehn Melodien gibt es jeweils als kurzen Einstieg und längere einstimmige Fassung: Dearly Beloved, Kairi's Theme, Destiny Islands, Traverse Town, Always on My Mind, Hollow Bastion, Hand in Hand, Dive into the Heart, Welcome to Wonderland und Never Land Sky.
+
+![Kingdom Hearts als zusätzliche Sammlung in der deutschen Oberfläche](docs/screenshots/kingdom-hearts-de.png)
+
+Die Final-Fantasy-Erweiterung enthält unter anderem To Zanarkand, Suteki da ne, Besaid Island und Hymn of the Fayth aus FFX sowie Terra's Theme, Celes's Theme, Tifa's Theme, Aerith's Theme, Eyes on Me und Melodies of Life.
+
+## Deutsch / English
+
+Die Sprache lässt sich unten links umstellen und wird gespeichert. Auch Hilfe, Stimmgerät, Meldungen und Exporte passen sich an. Liedtitel und gespeicherte Notendaten bleiben erhalten; deutsche H-Noten werden bei englischer Anzeige als B dargestellt.
+
+![Englische Oberfläche mit Kingdom-Hearts-Griffbildern](docs/screenshots/kingdom-hearts-en.png)
 
 ## Funktionen
 
@@ -27,6 +45,7 @@ Außerdem: Zelda (Ocarina of Time, Majora's Mask, The Wind Waker) sowie Final Fa
 - Sichtbar markierte Oktavanpassung für Töne außerhalb des Instrumentenumfangs.
 - Eigene Lieder mit Notenlängen und Pausen, automatische Speicherung, JSON-Import/-Export, PDF und SVG.
 - Neue Bibliotheksinhalte werden beim Update ergänzt. Eigene Lieder, bearbeitete oder gelöschte Einträge, Favoriten und Einstellungen bleiben erhalten.
+- Auswählbare Oberfläche auf Deutsch und Englisch, einschließlich Stimmgerätehilfe und Statusmeldungen.
 
 ## Gedruckte Okarina
 
@@ -54,6 +73,8 @@ npm run build
 
 Ergebnis: `OkarinaStudio/dist/Okarina-Studio.exe`. Per Doppelklick starten, keine Installation nötig. Die Datei wird nicht als Git-Quelldatei eingecheckt.
 
+Mit `npm run release:package` wird nach dem Build ein vollständiges ZIP mit EXE, NFO, deutscher und englischer Anleitung sowie Prüfsummen unter `OkarinaStudio/dist/release` erstellt.
+
 Eigene Daten liegen unter `%APPDATA%/okarina-studio/library.json`. Eine zusätzliche JSON-Sicherung lässt sich in der App anlegen. Sie enthält auch die Einstellungen. Bei einem Update die bisherige App schließen und die neue Version starten.
 
 ## Entwicklung und Prüfung
@@ -80,4 +101,4 @@ Die langen Fassungen sind **einstimmige Bearbeitungen ausgewählter MIDI-Stimmen
 - [Besaid Island bei Hell and Heaven Net](https://www.hellandheavennet.com/final-fantasy-10/midis.php).
 - [Blasdruck und Stimmung bei Pure Ocarinas](https://pureocarinas.com/ocarina-breath-curves).
 
-Inoffizielles Fanprojekt ohne Verbindung zu Nintendo oder Square Enix. Marken, Kompositionen und fremde Transkriptionen gehören ihren jeweiligen Rechteinhabern; für sie wird keine eigene Urheberschaft oder freie Lizenz behauptet. Die heruntergeladenen MIDI-Archive und Original-MIDI-Dateien sind nicht Bestandteil des Git-Repositories.
+Inoffizielles Fanprojekt ohne Verbindung zu Nintendo, Square Enix oder Disney. Marken, Kompositionen und fremde Transkriptionen gehören ihren jeweiligen Rechteinhabern; für sie wird keine eigene Urheberschaft oder freie Lizenz behauptet. Die heruntergeladenen MIDI-Archive und Original-MIDI-Dateien sind nicht Bestandteil des Git-Repositories.

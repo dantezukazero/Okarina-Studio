@@ -94,6 +94,21 @@ test("FFX-Erweiterung liefert 14 Melodien jeweils kurz und lang", () => {
     assert.equal(short.at(-1).note === "R", false);
   }
 });
+test("Kingdom Hearts ist eine eigene Zusatzsammlung mit zehn kurzen und langen Paaren", () => {
+  const songs = lib.songs.filter((s) => s.family === "Kingdom Hearts");
+  assert.equal(songs.length, 20);
+  for (const title of new Set(songs.map((s) => s.title))) {
+    const pair = songs.filter((s) => s.title === title);
+    assert.equal(pair.length, 2);
+    assert.ok(pair.some((s) => s.level === "beginner"));
+    assert.ok(pair.some((s) => s.level === "advanced"));
+    assert.ok(pair.every((s) => s.game === "Kingdom Hearts"));
+  }
+  assert.equal(
+    lib.songs.filter((s) => s.family === "The Legend of Zelda").length,
+    18,
+  );
+});
 test("Bibliotheksupdate bewahrt Bearbeitungen, Löschungen und Favoriten", () => {
   const stored = structuredClone(lib);
   stored.songs = stored.songs.slice(1, 30);
@@ -102,7 +117,7 @@ test("Bibliotheksupdate bewahrt Bearbeitungen, Löschungen und Favoriten", () =>
   delete stored.bundledIds;
   stored.settings = { offset: 7, favorites: ["original-1"] };
   const updated = C.updateLibrary(stored, lib);
-  assert.equal(updated.added, 36);
+  assert.equal(updated.added, 56);
   assert.equal(
     updated.library.songs.some((s) => s.id === "original-0"),
     false,

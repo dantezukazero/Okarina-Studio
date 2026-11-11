@@ -71,7 +71,7 @@ const { _electron: electron } = require("@playwright/test"),
       () =>
         document.querySelector(".practice h2").textContent === "Import-Test",
     );
-    assert.equal(await page.locator(".song-card").count(), 67);
+    assert.equal(await page.locator(".song-card").count(), 87);
     const backupFile = path.join(profile, "backup.json");
     await app.evaluate(({ dialog }, file) => {
       dialog.showSaveDialog = async () => ({ canceled: false, filePath: file });
@@ -84,7 +84,7 @@ const { _electron: electron } = require("@playwright/test"),
     );
     assert.equal(
       JSON.parse(fs.readFileSync(backupFile, "utf8")).songs.length,
-      67,
+      87,
     );
     const pdfFile = path.join(profile, "sheet.pdf");
     await app.evaluate(({ dialog }, file) => {
