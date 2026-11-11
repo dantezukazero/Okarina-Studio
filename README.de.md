@@ -42,6 +42,8 @@ Die Sprache lässt sich unten links umstellen und wird gespeichert. Auch Hilfe, 
 
 ## Funktionen
 
+Ab Version **1.3.0** kann die Melodienbibliothek unabhängig vom Programm aktualisiert werden. „Melodien aktualisieren“ prüft manuell; „Melodien automatisch aktualisieren“ aktiviert Prüfungen beim Start und alle sechs Stunden. Die Automatik ist zunächst ausgeschaltet. Eigene Lieder werden nicht hochgeladen. Neue Melodien und Korrekturen kommen aus dem öffentlichen GitHub-Katalog; persönliche Bearbeitungen und Löschungen bleiben erhalten. Eine geprüfte Fassung bleibt offline verfügbar. Details zum Veröffentlichen stehen in der [Katalog-Anleitung](library/README.md).
+
 - Bibliothek nach Spielreihe, Spiel, Schwierigkeit, Suchbegriff und Favoriten.
 - Kurze Einstiege und längere Melodiefassungen mit Griffbildern für jeden Ton.
 - Hörbare Referenztöne, Abspielen mit Markierung, Tempo, einzelne Schritte und Abschnittsschleifen.

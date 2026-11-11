@@ -40,7 +40,17 @@
           >
         </div>
         <button class="quiet" id="help">Griffe & erste Schritte ↗</button
-        ><button class="quiet" id="backup">Bibliothek sichern</button
+        ><button class="quiet" id="libraryUpdate">
+          Melodien aktualisieren ↻
+        </button>
+        <label class="catalog-auto"
+          ><input type="checkbox" id="autoCatalog" /> Melodien automatisch
+          aktualisieren</label
+        >
+        <span id="catalogStatus" class="catalog-status" role="status"
+          >Bibliothek offline verfügbar</span
+        >
+        <button class="quiet" id="backup">Bibliothek sichern</button
         ><button class="quiet" id="import">JSON importieren</button
         ><span id="saveState">Alles lokal · offline spielbar</span>
       </div>
@@ -243,6 +253,7 @@
     <div id="toast" role="status"></div>
     <script src="core.js"></script>
     <script src="library.js"></script>
+    <script src="catalog.js"></script>
     <script src="i18n.js"></script>
     <script src="app.js"></script>
   </body>

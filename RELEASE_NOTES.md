@@ -1,23 +1,37 @@
-Okarina Studio is a **Zelda-first practice app** for a real 12-hole ocarina. Final Fantasy and Kingdom Hearts extend the main collection as additional game worlds.
+Okarina Studio is a **Zelda-first ocarina practice app** with additional Final Fantasy and Kingdom Hearts collections.
 
-## New in 1.2.0
+## New in 1.3.0: independent library updates
 
-- **English / German** selectable in the app. Help, tuner guidance, messages and exports follow the selected language, which is saved. English note names use B instead of the German H.
-- **Kingdom Hearts:** ten melodies, each with a short beginner excerpt and a longer single-voice arrangement — Dearly Beloved, Kairi's Theme, Destiny Islands, Traverse Town, Always on My Mind, Hollow Bastion, Hand in Hand, Dive into the Heart, Welcome to Wonderland, and Never Land Sky.
-- Zelda remains the focus of the home screen and project description. Additional collections have their own area.
-- Updated README with screenshots and English documentation.
-- **86 arrangements** in total: 18 Zelda, 48 Final Fantasy and 20 Kingdom Hearts.
+- **Update melodies** checks the public GitHub catalog without downloading another app executable.
+- **Automatically update melodies** is optional and off by default. When enabled, it checks on startup and every six hours while the app is running.
+- New songs are added. Corrections update untouched originals; personal edits, deleted entries, custom songs, favorites, tuning and language settings are preserved.
+- Downloads are restricted to this project's HTTPS catalog and checked for format, supported notes/fingerings, size and SHA-256 checksum. Only JSON data is downloaded, not executable code.
+- The last verified catalog is cached for offline use. Failed or invalid downloads do not replace it.
+- A local `library.before-catalog-update.json` backup is made before applying changes. Playback or an open editor defers application; stop or close it and check again.
+
+## Publish new melodies
+
+Create or edit songs in the app, export JSON, then run:
+
+```powershell
+cd OkarinaStudio
+npm run library:import -- "C:\path\Okarina-Bibliothek.json"
+npm run library:publish
+git add ../library
+git commit -m "Update melody catalog"
+git push
+```
+
+[Full catalog maintenance guide](https://github.com/dantezukazero/Okarina-Studio/blob/main/library/README.md)
+
+No personal songs are uploaded by the app. The import command publishes only the export chosen by the maintainer. Stable song IDs allow later corrections without duplicates.
 
 ## Download and start
 
-**Complete package:** download `Okarina-Studio-1.2.0-Windows-x64.zip`, extract it, and double-click `Okarina-Studio.exe`. No installation is required. The executable is also available separately.
+Download `Okarina-Studio-1.3.0-Windows-x64.zip`, extract it, and run `Okarina-Studio.exe`. Close an older version first. Version 1.3.0 is required once to enable the new catalog update mechanism; future melody-only updates do not require another EXE.
 
-Close an older running version before replacing it. Your custom songs, edits, deleted entries, favorites and settings remain in your Windows user profile. New bundled arrangements are added once. Use **Back up library** for an additional JSON backup.
+The collection still contains **86 arrangements**: 18 Zelda, 48 Final Fantasy and 20 Kingdom Hearts. Existing app data is preserved. The interface remains selectable in English and German.
 
-The NFO includes the [MakerWorld link to the printed ocarina model and print profile](https://makerworld.com/de/models/1249288-deluxe-ocarina-fully-playable#profileId-1271476).
+**Verified:** catalog merge/preservation, export/import/publish workflow, checksums, invalid manifests and payloads, incompatible versions, offline fallback, live GitHub download, update UI, automatic preference persistence, existing playback/import/export/tuner/language checks, and the packaged Windows application.
 
-**Verified:** note parsing, transposition, synthetic tuner signals, library migration from 1.1, language switching and persistence, playback, import, JSON/PDF/SVG exports, and startup of the packaged Windows application. The actual tuning of the printed instrument must be checked locally.
-
-Longer arrangements adapt selected MIDI voices rather than full original scores. Source credits are included in the app and repository. This is an unofficial fan project, not affiliated with Nintendo, Square Enix or Disney.
-
-[Full documentation and screenshots](https://github.com/dantezukazero/Okarina-Studio#readme) · [Deutsche Dokumentation](https://github.com/dantezukazero/Okarina-Studio/blob/main/README.de.md)
+The NFO contains the [MakerWorld model and print profile](https://makerworld.com/de/models/1249288-deluxe-ocarina-fully-playable#profileId-1271476). The printed instrument's actual tuning must be checked locally. Longer arrangements adapt selected MIDI voices, not complete original scores. Unofficial fan project, not affiliated with Nintendo, Square Enix or Disney.

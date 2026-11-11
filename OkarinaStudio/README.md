@@ -2,6 +2,8 @@
 
 A Zelda-first practice app for a real 12-hole ocarina, with Final Fantasy and Kingdom Hearts as additional collections. The interface supports English and German.
 
+Since 1.3.0, **Update melodies** checks the independently versioned GitHub catalog. Optional automatic checks run at startup and every six hours. They are disabled by default. The last verified library remains available offline; custom songs and personal changes are preserved. See the [catalog maintenance guide](../library/README.md) for importing app exports and publishing data-only updates.
+
 See the [main project README](../README.md) for screenshots, the collection list, the printed instrument, source credits and downloads. [German documentation](../README.de.md) is also available.
 
 ## Development

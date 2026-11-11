@@ -2,6 +2,16 @@
   "use strict";
   // Canonical UI text remains German. User-entered song data is never translated.
   const en = {
+    "Melodien aktualisieren ↻": "Update melodies ↻",
+    "Melodien automatisch aktualisieren": "Automatically update melodies",
+    "Bibliothek offline verfügbar": "Library available offline",
+    "Bibliothek wird geprüft …": "Checking library …",
+    "Update nicht möglich. Die Offline-Bibliothek bleibt verfügbar.":
+      "Update unavailable. Your offline library remains available.",
+    "Neue Bibliothek bereit. Wiedergabe stoppen oder Editor schließen und erneut prüfen.":
+      "New library ready. Stop playback or close the editor, then check again.",
+    "Für diese Bibliothek ist eine neuere Programmversion nötig. Siehe GitHub Releases.":
+      "This library needs a newer app version. See GitHub Releases.",
     "STUDIO / DEIN MUSIKABENTEUER": "STUDIO / YOUR MUSICAL ADVENTURE",
     "DEINE BIBLIOTHEK": "YOUR LIBRARY",
     "Alle Melodien": "All melodies",
@@ -269,6 +279,20 @@
           "$1 individual notes shifted by octaves to fit the ocarina range.",
         );
       result = result.replace(/^1 beats(?= ·|$)/, "1 beat");
+      result = result
+        .replace(
+          /^Bibliothek offline verfügbar\. Revision (\d+)$/,
+          "Library available offline. Revision $1",
+        )
+        .replace(
+          /^Bibliothek ist aktuell\. Revision (\d+)$/,
+          "Library is up to date. Revision $1",
+        )
+        .replace(
+          /^Bibliothek aktualisiert: (\d+) neu, (\d+) korrigiert, (\d+) eigene Fassungen behalten\.$/,
+          "Library updated: $1 added, $2 corrected, $3 custom versions preserved.",
+        )
+        .replace(/^Update fehlgeschlagen: /, "Update failed: ");
       result = result.replace(/^Pause, /, "Rest, ");
       // Error messages may combine a translated prefix with a full message.
       for (const [de, english] of Object.entries(en))

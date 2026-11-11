@@ -910,3 +910,24 @@ form textarea {
     display: none;
   }
 }
+
+.catalog-auto {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #aabda9;
+  line-height: 1.5;
+  margin: 2px 0 7px;
+}
+.catalog-auto input {
+  accent-color: #d6bd7f;
+}
+.catalog-status {
+  display: block;
+  color: #8fa58b;
+  font-size: 9px;
+  line-height: 1.5;
+  max-width: 195px;
+  margin-bottom: 7px;
+}

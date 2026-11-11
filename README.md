@@ -27,6 +27,15 @@ Start with Zelda's Lullaby, Epona's Song, Saria's Song or Song of Time. Listen t
 - Recalculate fingerings for the selected tuning, with marked octave adjustments when needed.
 - Create your own songs with durations and rests; back up as JSON and export PDF or SVG sheets.
 - Switch between English and German. In English, note B uses international notation; the German interface displays it as H. Song titles and stored note data are preserved.
+- Update the melody library independently of the app, manually or with an optional automatic check. Personal edits are preserved.
+
+## Library updates
+
+Starting with **1.3.0**, new melodies and corrections can arrive without downloading another EXE. Click **Update melodies**, or enable **Automatically update melodies** for checks on startup and every six hours. Automatic checks are off by default. The app checks this project's public GitHub catalog; your own songs are never uploaded.
+
+Verified data is cached for offline use. New songs are added, untouched originals can receive corrections, and your own edits, deletions, favorites and settings are preserved. An update backup is created before applying changes. Playback or an open editor defers application until you stop or close it and check again.
+
+To publish new songs, export them from the app, run `npm run library:import -- "path/to/export.json"` followed by `npm run library:publish`, and push the generated catalog. See the [catalog maintenance guide](library/README.md).
 
 ## Collections in version 1.2.0
 

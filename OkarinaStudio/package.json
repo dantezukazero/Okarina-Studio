@@ -1,6 +1,6 @@
 {
   "name": "okarina-studio",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "description": "Zelda-Okarina-Trainer mit zusätzlichen Final-Fantasy- und Kingdom-Hearts-Sammlungen",
   "author": "Jason",
@@ -9,9 +9,12 @@
     "start": "electron .",
     "build": "electron-builder --win portable --x64",
     "test": "node --test tests/*.test.cjs",
-    "test:ui": "node scripts/smoke.cjs && node scripts/integration.cjs && node scripts/update-smoke.cjs && node scripts/language-smoke.cjs",
+    "test:ui": "node scripts/smoke.cjs && node scripts/integration.cjs && node scripts/update-smoke.cjs && node scripts/language-smoke.cjs && node scripts/catalog-smoke.cjs",
     "library:prepare": "node scripts/prepare-library.cjs",
-    "release:package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1"
+    "release:package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1",
+    "library:publish": "node scripts/catalog-publish.cjs",
+    "library:bundle": "node scripts/catalog-publish.cjs --bundle",
+    "library:import": "node scripts/catalog-import.cjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",
@@ -33,7 +36,8 @@
       "preload.cjs",
       "ui/**/*",
       "package.json",
-      "icon.ico"
+      "icon.ico",
+      "catalog-updater.cjs"
     ],
     "win": {
       "target": "portable",

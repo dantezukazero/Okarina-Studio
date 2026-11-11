@@ -39,6 +39,14 @@ The microphone is used only on request; audio processing stays on your PC.
 The printed instrument's actual tuning must be checked. Apply its base note
 to recalculate the fingerings. Octave shifts are marked with an arrow.
 
+## Melody updates
+
+Use Update melodies to fetch new songs and corrections from the public GitHub
+catalog. Automatically update melodies enables checks on startup and every
+six hours; it is off by default. Your songs are never uploaded. Personal edits
+and deleted entries are preserved; verified data remains available offline.
+Stop playback or close the editor and check again if application is deferred.
+
 ## Your library
 
 Create songs with Add your own song. Note input uses international B,

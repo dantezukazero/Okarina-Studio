@@ -8,6 +8,8 @@ Ein lokaler Zelda-Okarina-Trainer auf Grundlage von `../Okarina_Editor_Tablet.ht
 
 ## Enthalten
 
+Ab Version **1.3.0** ist die Bibliothek unabhängig aktualisierbar: „Melodien aktualisieren“ lädt neue Melodien und Korrekturen aus dem öffentlichen GitHub-Katalog. „Melodien automatisch aktualisieren“ aktiviert Prüfungen beim Programmstart und alle sechs Stunden; die Automatik ist zunächst aus. Eigene Lieder werden nicht hochgeladen. Persönliche Bearbeitungen und gelöschte Einträge bleiben erhalten, eine geprüfte Fassung funktioniert weiterhin offline. Vor einer Übernahme wird zusätzlich `library.before-catalog-update.json` im Windows-Benutzerprofil gesichert. Bei laufender Wiedergabe oder offenem Editor wird die Übernahme verschoben; anschließend erneut prüfen.
+
 - 86 Fassungen: Zelda als Hauptsammlung, ergänzt um Final Fantasy I, VI, VII, VIII, IX und X sowie Kingdom Hearts. Neu: 10 Kingdom-Hearts-Melodien jeweils kurz und lang, darunter Dearly Beloved, Kairi's Theme, Traverse Town und Destiny Islands.
 - Sprache unten links umstellen: Deutsch / English. Die Auswahl wird gespeichert; englische Notennamen verwenden B anstelle des deutschen H. Gespeicherte Notendaten und eigene Titel bleiben erhalten.
 - Spielauswahl, Suchfeld, Einsteiger/Fortgeschrittene und Favoriten.

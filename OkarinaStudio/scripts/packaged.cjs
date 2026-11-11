@@ -17,9 +17,13 @@ const { _electron: electron } = require("@playwright/test"),
     await page.waitForSelector(".song-card");
     assert.equal(await page.locator(".song-card").count(), 86);
     await page.locator("#language").selectOption("en");
-    await page.waitForFunction(()=>document.querySelector("#play").textContent==="▶ Play");
+    await page.waitForFunction(
+      () => document.querySelector("#play").textContent === "▶ Play",
+    );
     await page.locator("#language").selectOption("de");
-    await page.waitForFunction(()=>document.querySelector("#play").textContent==="▶ Abspielen");
+    await page.waitForFunction(
+      () => document.querySelector("#play").textContent === "▶ Abspielen",
+    );
     const file = path.join(profile, "song.svg");
     await app.evaluate(({ dialog }, file) => {
       dialog.showSaveDialog = async () => ({ canceled: false, filePath: file });
@@ -37,6 +41,19 @@ const { _electron: electron } = require("@playwright/test"),
       fs.readFileSync(file, "utf8"),
     );
     assert.ok(valid);
+    if (process.argv.includes("--catalog-live")) {
+      await page.locator("#libraryUpdate").click();
+      await page.waitForFunction(
+        () =>
+          document
+            .querySelector("#catalogStatus")
+            .textContent.includes("Bibliothek ist aktuell"),
+        {},
+        { timeout: 30000 },
+      );
+      assert.equal(await page.locator("#autoCatalog").isChecked(), false);
+      console.log("Packaged live catalog check passed.");
+    }
     await page.setViewportSize({ width: 1000, height: 750 });
     assert.equal(
       await page.evaluate(

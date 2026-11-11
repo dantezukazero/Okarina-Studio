@@ -1,8 +1,21 @@
 const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const { createUpdater } = require("./catalog-updater.cjs");
 let win;
+let catalogUpdater;
 app.whenReady().then(() => {
+  const bundle = JSON.parse(
+    require("node:fs")
+      .readFileSync(path.join(__dirname, "ui/library.js"), "utf8")
+      .replace(/^window\.LIBRARY\s*=\s*/, "")
+      .replace(/;\s*$/, ""),
+  );
+  catalogUpdater = createUpdater({
+    cacheFile: path.join(app.getPath("userData"), "catalog-cache.json"),
+    appVersion: app.getVersion(),
+    fingerings: bundle.fingerings,
+  });
   Menu.setApplicationMenu(null);
   win = new BrowserWindow({
     width: 1440,
@@ -27,6 +40,22 @@ app.whenReady().then(() => {
 });
 app.on("window-all-closed", () => app.quit());
 const storage = () => path.join(app.getPath("userData"), "library.json");
+ipcMain.handle("catalog-cache", () => catalogUpdater.readCache());
+ipcMain.handle("catalog-check", (_, revision) =>
+  catalogUpdater.check(revision),
+);
+ipcMain.handle("catalog-backup", async () => {
+  try {
+    await fs.copyFile(
+      storage(),
+      path.join(app.getPath("userData"), "library.before-catalog-update.json"),
+    );
+    return true;
+  } catch (e) {
+    if (e.code === "ENOENT") return true;
+    throw e;
+  }
+});
 ipcMain.handle("load", async () => {
   try {
     return JSON.parse(await fs.readFile(storage(), "utf8"));

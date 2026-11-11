@@ -13,7 +13,13 @@ const $ = (id) => document.getElementById(id),
         })[c],
     );
 let library = structuredClone(window.LIBRARY),
-  settings = { offset: 0, fold: true, favorites: [], language: "de" },
+  settings = {
+    offset: 0,
+    fold: true,
+    favorites: [],
+    language: "de",
+    autoCatalog: false,
+  },
   selected = library.songs[0].id,
   family = "all",
   game = "all",
@@ -80,13 +86,14 @@ function persist() {
   saveQueue = saveQueue
     .catch(() => {})
     .then(() => window.desktop.save(snapshot))
-    .then(
-      () =>
-        ($("saveState").textContent = "Gespeichert auf diesem PC · offline"),
-    )
+    .then(() => {
+      $("saveState").textContent = "Gespeichert auf diesem PC · offline";
+      return true;
+    })
     .catch((e) => {
       $("saveState").textContent = "Speichern fehlgeschlagen – JSON sichern";
       notify("Speichern fehlgeschlagen: " + e.message);
+      return false;
     });
   return saveQueue;
 }
@@ -879,6 +886,97 @@ $("language").onchange = (e) => {
   if ($("manualTuning")) $("manualTuning").innerHTML = tuningOptions();
   persist();
 };
+let catalogChecking = false;
+function catalogStatus(message) {
+  $("catalogStatus").textContent = message;
+}
+async function applyCatalog(payload) {
+  if (playing || $("editor").open) return { deferred: true };
+  await saveQueue;
+  if (playing || $("editor").open) return { deferred: true };
+  await window.desktop.backupCatalog();
+  if (playing || $("editor").open) return { deferred: true };
+  const merged = Catalog.merge(library, payload, window.LIBRARY);
+  if (!merged.changed) return merged;
+  const previous = library;
+  library = validate(merged.library);
+  if (!(await persist())) {
+    library = previous;
+    throw Error("Could not save the updated library");
+  }
+  if (!song()) selected = library.songs[0].id;
+  renderWorlds();
+  renderGameFilter();
+  renderList();
+  renderPractice();
+  return merged;
+}
+async function checkCatalog(silent = false) {
+  if (catalogChecking) return;
+  if (silent && (playing || $("editor").open)) return;
+  catalogChecking = true;
+  $("libraryUpdate").disabled = true;
+  catalogStatus("Bibliothek wird geprüft …");
+  try {
+    const result = await window.desktop.checkCatalog(
+      library.catalogRevision || 1,
+    );
+    let merged;
+    if (result.catalog && result.catalog.revision > library.catalogRevision)
+      merged = await applyCatalog(result.catalog);
+    if (merged?.deferred) {
+      catalogStatus(
+        "Neue Bibliothek bereit. Wiedergabe stoppen oder Editor schließen und erneut prüfen.",
+      );
+      return;
+    }
+    if (result.status === "error") {
+      catalogStatus(
+        "Update nicht möglich. Die Offline-Bibliothek bleibt verfügbar.",
+      );
+      if (!silent)
+        notify(I18n.text("Update fehlgeschlagen: ") + result.message);
+      return;
+    }
+    if (result.status === "requires-app") {
+      catalogStatus(
+        "Für diese Bibliothek ist eine neuere Programmversion nötig. Siehe GitHub Releases.",
+      );
+      return;
+    }
+    if (merged?.changed) {
+      const message = `Bibliothek aktualisiert: ${merged.added} neu, ${merged.updated} korrigiert, ${merged.preserved} eigene Fassungen behalten.`;
+      catalogStatus(message);
+      if (!silent || merged.added || merged.updated) notify(message);
+    } else {
+      catalogStatus(
+        "Bibliothek ist aktuell. Revision " + library.catalogRevision,
+      );
+      if (!silent)
+        notify("Bibliothek ist aktuell. Revision " + library.catalogRevision);
+    }
+  } catch (e) {
+    catalogStatus(
+      "Update nicht möglich. Die Offline-Bibliothek bleibt verfügbar.",
+    );
+    if (!silent) notify(I18n.text("Update fehlgeschlagen: ") + e.message);
+  } finally {
+    catalogChecking = false;
+    $("libraryUpdate").disabled = false;
+  }
+}
+$("libraryUpdate").onclick = () => checkCatalog(false);
+$("autoCatalog").onchange = async (e) => {
+  settings.autoCatalog = e.target.checked;
+  await persist();
+  if (settings.autoCatalog) checkCatalog(true);
+};
+setInterval(
+  () => {
+    if (settings.autoCatalog) checkCatalog(true);
+  },
+  6 * 60 * 60 * 1000,
+);
 I18n.start();
 (async () => {
   let added = 0,
@@ -892,6 +990,7 @@ I18n.start();
       needsSave = added > 0 || !Array.isArray(stored.bundledIds);
       if (stored.settings) {
         settings.language = stored.settings.language === "en" ? "en" : "de";
+        settings.autoCatalog = stored.settings.autoCatalog === true;
         settings.offset =
           Number.isInteger(stored.settings.offset) &&
           Math.abs(stored.settings.offset) <= 12
@@ -907,6 +1006,24 @@ I18n.start();
     notify("Gespeicherte Bibliothek konnte nicht geladen werden: " + e.message);
   }
   I18n.setLanguage(settings.language);
+  library = Catalog.initialize(library, window.LIBRARY);
+  try {
+    const cached = await window.desktop.catalogCache();
+    if (cached && cached.revision > library.catalogRevision) {
+      await saveQueue;
+      await window.desktop.backupCatalog();
+      const merged = Catalog.merge(library, cached, window.LIBRARY);
+      library = validate(merged.library);
+      added += merged.added;
+      needsSave = needsSave || merged.changed;
+    }
+  } catch (e) {
+    notify(I18n.text("Update fehlgeschlagen: ") + e.message);
+  }
+  $("autoCatalog").checked = settings.autoCatalog;
+  catalogStatus(
+    "Bibliothek offline verfügbar. Revision " + library.catalogRevision,
+  );
   selected = library.songs[0].id;
   tempo = song().bpm;
   renderWorlds();
@@ -920,4 +1037,5 @@ I18n.start();
       added +
         " neue Fassungen ergänzt – deine Lieder und Einstellungen bleiben erhalten.",
     );
+  if (settings.autoCatalog) checkCatalog(true);
 })();
